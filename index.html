@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0A0A0C">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="OZAK · لحظاتك، بذهبها">
+<title>OZAK · أوزاك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;500&family=Tajawal:wght@500;700;800&display=swap">
+<style>
+:root{--bg:#0A0A0C;--surface:#141419;--elev:#1B1B22;--gold:#D4AF37;--champ:#E8D8A6;--deep:#B8963E;--text:#F5F1E8;--dim:#9C968B;--hair:rgba(212,175,55,.14);--danger:#7A1F2B;--ease:cubic-bezier(.22,.61,.36,1);--bs:56px;--bo:.12;--f:'Inter','Tajawal',system-ui,sans-serif}
+html[lang=ar]{--f:'Tajawal','Inter',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:var(--text);font:500 15px/1.55 var(--f);overflow:hidden;font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+svg{width:1em;height:1em;display:block}
+.serif{font-family:'Cormorant Garamond',serif;font-weight:600}
+.gt{background:linear-gradient(135deg,var(--champ),var(--gold) 55%,var(--deep));-webkit-background-clip:text;background-clip:text;color:transparent}
+.dim{color:var(--dim);font-size:13px}
+.grow{flex:1;min-width:0}
+h1{font-weight:800;font-size:30px}h2{font-weight:700;font-size:20px;margin-bottom:6px}
+.sec{font-weight:700;font-size:14px;color:var(--champ);margin:22px 0 10px}
+/* الشاشات */
+.scr{display:none;position:fixed;inset:0;overflow-y:auto;padding:max(24px,env(safe-area-inset-top)) 24px 120px}
+.scr.on{display:block;animation:fi .35s var(--ease)}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}}
+.hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}
+.card{position:relative;background:var(--surface);border:1px solid var(--hair);border-radius:20px;padding:20px;margin-bottom:16px;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.card::before{content:"";position:absolute;top:0;inset-inline:24px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.flex{display:flex;align-items:center;gap:14px}
+.empty{text-align:center;color:var(--dim)}.empty svg{font-size:34px;margin:0 auto 8px;color:var(--deep);opacity:.7}
+.orb{width:48px;height:48px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;color:var(--gold);font-size:24px;flex:none;background:rgba(212,175,55,.06)}
+.ib{width:44px;height:44px;border-radius:14px;border:1px solid var(--hair);display:grid;place-items:center;color:var(--gold);font-size:20px;transition:.3s var(--ease)}
+.ib:active{background:rgba(212,175,55,.14);transform:scale(.98)}
+.btn{height:52px;border-radius:14px;padding:0 22px;font-weight:700;font-size:16px;transition:transform .3s var(--ease),background .3s var(--ease);width:100%}
+.btn:active{transform:scale(.98)}
+.pri{background:linear-gradient(135deg,var(--champ),var(--gold) 55%,var(--deep));color:#1a1405}
+.gh{border:1px solid var(--hair);background:transparent}.gh:active{background:rgba(212,175,55,.14)}
+.two{display:flex;gap:12px;margin-top:18px}
+/* مفتاح */
+.sw{width:50px;height:28px;border-radius:14px;border:1px solid var(--hair);background:var(--elev);position:relative;flex:none;transition:.3s var(--ease)}
+.sw i{position:absolute;top:3px;inset-inline-start:3px;width:20px;height:20px;border-radius:50%;background:var(--dim);transition:inset-inline-start .3s var(--ease),background .3s}
+.sw.on{border-color:var(--gold);background:rgba(212,175,55,.16)}.sw.on i{inset-inline-start:25px;background:var(--gold)}
+/* تبويبات */
+.tabs{display:flex;gap:8px;margin-bottom:18px}
+.tab{flex:1;height:42px;border-radius:21px;border:1px solid var(--hair);color:var(--dim);transition:.3s var(--ease)}
+.tab.on{border-color:var(--gold);color:var(--champ);background:rgba(212,175,55,.1)}
+.ap{display:flex;align-items:center;gap:14px;padding:16px 20px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold);flex:none}
+.ap b{display:block;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* صفوف وشبكات */
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;width:100%;text-align:start;border-bottom:1px solid var(--hair)}
+.row:last-child{border-bottom:0}
+.grid{display:grid;gap:10px}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.chip{min-height:48px;padding:8px;border:1px solid var(--hair);border-radius:14px;background:var(--elev);font-size:13px;text-align:center;position:relative;transition:.3s var(--ease)}
+.chip:active{transform:scale(.98);background:rgba(212,175,55,.12)}
+.chip.sel{border-color:var(--gold);color:var(--champ);box-shadow:0 0 14px rgba(212,175,55,.18)}
+.chip s{position:absolute;top:2px;inset-inline-end:6px;text-decoration:none;color:var(--dim);font-size:15px}
+.lbl{display:flex;justify-content:space-between;margin:6px 0 10px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:var(--hair);margin:8px 0 18px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px rgba(212,175,55,.6)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radius:50%;background:var(--gold);box-shadow:0 0 12px rgba(212,175,55,.6)}
+.pvbox{height:84px;border-radius:14px;background:var(--bg);border:1px dashed var(--hair);display:grid;place-items:center;margin-bottom:6px}
+.bub{width:var(--bs);height:var(--bs);border-radius:50%;border:1px solid var(--gold);background:rgba(212,175,55,.08);color:var(--gold);display:grid;place-items:center;font-size:calc(var(--bs)*.42);opacity:var(--bo)}
+.in{width:100%;height:50px;border-radius:14px;border:1px solid var(--hair);background:var(--elev);color:var(--text);padding:0 14px;font:inherit;margin:6px 0 14px;color-scheme:dark}
+.in:focus{outline:0;border-color:var(--gold)}
+.step .ck{color:var(--gold);font-size:20px;min-width:22px}
+/* التنقل */
+#nav{position:fixed;bottom:0;inset-inline:0;z-index:50;display:flex;background:rgba(10,10,12,.92);backdrop-filter:blur(14px);border-top:1px solid var(--hair);padding:8px 12px calc(8px + env(safe-area-inset-bottom))}
+#nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--dim);font-size:11px;padding:4px;transition:.3s var(--ease)}
+#nav button svg{font-size:23px}#nav button.on{color:var(--gold)}
+/* الفقاعة */
+#bubble{position:fixed;z-index:60;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;transition:opacity .3s var(--ease)}
+#bubble.snap{transition:left .25s var(--ease),top .25s var(--ease),opacity .3s}
+#bubble.press,#bubble.listening,#bubble.processing,#bubble.success{opacity:.6}
+#bubble.listening{animation:ring 1.4s infinite}
+#bubble.processing{border-style:dashed}
+#bubble.success{box-shadow:0 0 18px var(--gold)}
+#bubble.upcoming{box-shadow:0 0 12px rgba(212,175,55,.5)}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(212,175,55,.55)}100%{box-shadow:0 0 0 20px rgba(212,175,55,0)}}
+/* النوافذ */
+.ov{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.62);display:none;align-items:flex-end}
+.ov.on{display:flex;animation:fo .3s var(--ease)}
+@keyframes fo{from{opacity:0}}
+.sheet{width:100%;max-height:92%;overflow-y:auto;background:var(--surface);border-top:1px solid var(--gold);border-radius:24px 24px 0 0;padding:28px 24px calc(24px + env(safe-area-inset-bottom));text-align:center;animation:up .4s var(--ease)}
+#confirm .sheet{text-align:start}
+@keyframes up{from{transform:translateY(60px)}}
+.orbL{width:120px;height:120px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;font-size:48px;color:var(--gold);margin:0 auto 18px;background:rgba(212,175,55,.06)}
+.orbL.pls{animation:ring 1.4s infinite}
+.tx{min-height:64px;margin-top:14px;padding:12px;border-radius:14px;background:var(--elev);color:var(--champ);font-size:16px}
+/* المنبه */
+#alarm{position:fixed;inset:0;z-index:100;display:none;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center;background:radial-gradient(circle at 50% 35%,#1d1a10,var(--bg) 70%)}
+#alarm.on{display:flex}
+.pulse{width:180px;height:180px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;font-size:72px;color:var(--gold);animation:pul 2.4s var(--ease) infinite;margin-bottom:30px}
+@keyframes pul{0%,100%{box-shadow:0 0 0 0 rgba(212,175,55,.35);transform:scale(1)}50%{box-shadow:0 0 50px 16px rgba(212,175,55,.18);transform:scale(1.04)}}
+.ls{letter-spacing:4px;color:var(--dim)}
+#aT{font-size:34px;margin:10px 0}#aTm{font-size:56px;line-height:1.1}
+#alarm .two{width:100%;max-width:380px;margin-top:40px}
+/* إشعار + افتتاحية */
+#toast{position:fixed;z-index:90;bottom:calc(90px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,16px);max-width:88%;background:var(--elev);border:1px solid var(--gold);border-radius:14px;padding:12px 18px;opacity:0;pointer-events:none;transition:.35s var(--ease);text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+#splash{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .5s var(--ease)}
+#splash.out{opacity:0;pointer-events:none}
+.ring{width:96px;height:96px;border-radius:50%;border:1.5px solid var(--gold);display:grid;place-items:center;font-size:54px;line-height:1}
+.nm{font-size:34px;letter-spacing:6px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="splash"><div class="ring"><span class="gt serif">O</span></div><div class="gt serif nm">OZAK</div><p class="dim" data-i="tag"></p></div>
+
+<!-- الصلاحيات -->
+<section class="scr" id="s-ob">
+  <h1 class="gt" data-i="obT" style="margin-top:40px"></h1><p class="dim" data-i="obD"></p>
+  <div class="card" style="margin:26px 0">
+    <button class="row step" id="o1"><span data-i="o1"></span><b class="ck"></b></button>
+    <button class="row step" id="o2"><span data-i="o2"></span><b class="ck"></b></button>
+    <button class="row step" id="o3"><span><span data-i="o3"></span><small class="dim" data-i="o3n" style="display:block"></small></span><b class="ck"></b></button>
+  </div>
+  <button class="btn pri" id="obGo" data-i="go"></button>
+</section>
+
+<!-- الرئيسية -->
+<section class="scr" id="s-home">
+  <div class="hd"><div><h1 class="gt serif" style="font-size:36px;letter-spacing:4px">OZAK</h1><p class="dim" data-i="hi"></p></div><button class="ib" id="manual" data-ic="plus"></button></div>
+  <div class="card flex"><div class="orb" data-ic="mic"></div><div class="grow"><b data-i="bub"></b><p class="dim" id="bubSt"></p></div><button class="sw" id="bubSw" role="switch"><i></i></button></div>
+  <h3 class="sec" data-i="nxt"></h3><div id="next"></div>
+  <button class="btn pri" id="addV" data-i="addV" style="margin-top:8px"></button>
+</section>
+
+<!-- المواعيد -->
+<section class="scr" id="s-appts">
+  <div class="tabs"><button class="tab on" data-tab="up" data-i="up"></button><button class="tab" data-tab="pa" data-i="pa"></button></div>
+  <div id="list"></div>
+</section>
+
+<!-- الإعدادات -->
+<section class="scr" id="s-set">
+  <h3 class="sec" data-i="sBub" style="margin-top:0"></h3>
+  <div class="card">
+    <div class="pvbox"><div class="bub" data-ic="mic"></div></div>
+    <div class="lbl"><span data-i="op"></span><b id="opV"></b></div><input type="range" id="opR" min="5" max="60">
+    <div class="lbl"><span data-i="sz"></span><b id="szV"></b></div><input type="range" id="szR" min="40" max="72" style="margin-bottom:4px">
+  </div>
+  <h3 class="sec" data-i="snd"></h3>
+  <div class="card"><div class="grid g3" id="tones"></div><div class="grid g3" id="customs" style="margin-top:10px"></div>
+    <button class="btn gh" id="addM" data-i="addM" style="margin-top:14px"></button><input type="file" id="file" accept="audio/*" hidden></div>
+  <h3 class="sec" data-i="beh"></h3>
+  <div class="card"><button class="row" id="rSn"><span data-i="snz"></span><b class="gt" id="vSn"></b></button><button class="row" id="rVb"><span data-i="vib"></span><b class="gt" id="vVb"></b></button></div>
+  <h3 class="sec" data-i="lng"></h3>
+  <div class="card"><div class="grid g2" id="langs"></div></div>
+  <h3 class="sec" data-i="inf"></h3>
+  <div class="card"><p class="dim"><span class="gt serif" style="font-size:18px">OZAK</span> · <span data-i="infT"></span></p></div>
+</section>
+
+<nav id="nav"><button data-go="home" class="on"><span data-ic="home"></span><span data-i="nHome"></span></button><button data-go="appts"><span data-ic="cal"></span><span data-i="nAp"></span></button><button data-go="set"><span data-ic="gear"></span><span data-i="nSet"></span></button></nav>
+<div id="bubble" data-ic="mic" class="bub"></div>
+<div id="toast"></div>
+
+<!-- الصوت -->
+<div class="ov" id="voice"><div class="sheet">
+  <div class="orbL" id="vOrb" data-ic="mic"></div><h2 data-i="vT"></h2><p class="dim" data-i="vEx"></p><div class="tx" id="vTx"></div>
+  <div class="two"><button class="btn gh" id="vCan" data-i="can"></button><button class="btn pri" id="vGo" data-i="begin"></button></div>
+</div></div>
+<!-- التأكيد -->
+<div class="ov" id="confirm"><div class="sheet">
+  <h2 class="gt" data-i="cT"></h2>
+  <label class="dim" data-i="ttl"></label><input class="in" id="cTitle" maxlength="80">
+  <label class="dim" data-i="whn"></label><input class="in" id="cWhen" type="datetime-local">
+  <p class="gt serif" id="cSum" style="font-size:24px"></p>
+  <div class="two"><button class="btn gh" id="cCan" data-i="can"></button><button class="btn pri" id="cSave" data-i="sv"></button></div>
+</div></div>
+<!-- المنبه -->
+<div id="alarm"><div class="pulse" data-ic="clock"></div><p class="ls" data-i="now"></p><h1 id="aT"></h1><div class="serif gt" id="aTm"></div>
+  <div class="two"><button class="btn gh" id="aSn"></button><button class="btn pri" id="aDn" data-i="dn"></button></div></div>
+
+<script>
+'use strict';
+/* ═══ الترجمات: 6 لغات كاملة ═══ */
+const I18N={
+ar:{tag:`لحظاتك، بذهبها`,hi:`مرحباً بك`,bub:`الفقاعة`,bubOn:`مفعّلة · اضغط للتحدث`,bubOff:`متوقفة`,nxt:`الموعد القادم`,noNxt:`لا مواعيد قادمة`,addV:`🎤 أضف موعداً بالصوت`,nHome:`الرئيسية`,nAp:`المواعيد`,nSet:`الإعدادات`,up:`قادمة`,pa:`منتهية`,noPa:`لا مواعيد منتهية`,sBub:`الفقاعة`,op:`الشفافية`,sz:`الحجم`,snd:`الأصوات`,addM:`🎵 أضف من موسيقاك`,beh:`السلوك`,snz:`التأجيل الافتراضي`,vib:`الاهتزاز`,vl:`خفيف`,vm:`متوسط`,vs:`قوي`,lng:`اللغة`,inf:`معلومات`,infT:`الإصدار 1.0 · بيانات محلية فقط · بدون إعلانات`,obT:`فعّل الفقاعة`,obD:`ثلاث خطوات بسيطة، بهدوء وبأناقة.`,o1:`السماح بالميكروفون`,o2:`السماح بالإشعارات`,o3:`السماح بالظهور فوق التطبيقات`,o3n:`يُبقي الفقاعة ظاهرة حتى خارج التطبيق (نسخة APK).`,go:`ابدأ الاستخدام`,vT:`اضغط وتحدث`,vEx:`«اضبط لي موعد 5 مساءً لقاء مع جيفري»`,lis:`أستمع إليك…`,noSp:`المتصفح لا يدعم الإدخال الصوتي`,can:`إلغاء`,begin:`ابدأ`,cT:`تأكيد الموعد`,tod:`اليوم`,tom:`غداً`,sv:`حفظ`,nu:`لم أفهم الوقت، حاول مرة أخرى`,ok:`تم الحفظ`,del:`تم الحذف`,big:`الملف أكبر من 5MB`,min:`د`,now:`حان الموعد`,dn:`تم`,sn:`تأجيل`,ttl:`العنوان`,whn:`الموعد`,dt:`موعد`,full:`المساحة ممتلئة`,imp:`تمت إضافة النغمة`,mus:`موسيقاي`,tns:[`همسة`,`بي بي`,`رنين ذهبي`,`كريستال`,`فجر`,`نبض`]},
+en:{tag:`Your moments, in gold`,hi:`Welcome`,bub:`Bubble`,bubOn:`On · tap to speak`,bubOff:`Off`,nxt:`Next appointment`,noNxt:`No upcoming appointments`,addV:`🎤 Add by voice`,nHome:`Home`,nAp:`Appointments`,nSet:`Settings`,up:`Upcoming`,pa:`Past`,noPa:`No past appointments`,sBub:`Bubble`,op:`Opacity`,sz:`Size`,snd:`Sounds`,addM:`🎵 Add from your music`,beh:`Behavior`,snz:`Default snooze`,vib:`Vibration`,vl:`Light`,vm:`Medium`,vs:`Strong`,lng:`Language`,inf:`About`,infT:`Version 1.0 · Local data only · No ads`,obT:`Enable the bubble`,obD:`Three simple steps, calm and refined.`,o1:`Allow microphone`,o2:`Allow notifications`,o3:`Allow display over other apps`,o3n:`Keeps the bubble visible outside the app (APK version).`,go:`Get started`,vT:`Tap and speak`,vEx:`“Set a meeting at 5 pm with Jeffrey”`,lis:`Listening…`,noSp:`This browser does not support voice input`,can:`Cancel`,begin:`Start`,cT:`Confirm appointment`,tod:`Today`,tom:`Tomorrow`,sv:`Save`,nu:`Couldn't understand the time, try again`,ok:`Saved`,del:`Deleted`,big:`File is larger than 5MB`,min:`min`,now:`It's time`,dn:`Done`,sn:`Snooze`,ttl:`Title`,whn:`When`,dt:`Appointment`,full:`Storage is full`,imp:`Tone added`,mus:`My music`,tns:[`Whisper`,`Beep`,`Golden Chime`,`Crystal`,`Dawn`,`Pulse`]},
+fr:{tag:`Vos instants, en or`,hi:`Bienvenue`,bub:`Bulle`,bubOn:`Active · touchez pour parler`,bubOff:`Désactivée`,nxt:`Prochain rendez-vous`,noNxt:`Aucun rendez-vous à venir`,addV:`🎤 Ajouter à la voix`,nHome:`Accueil`,nAp:`Rendez-vous`,nSet:`Réglages`,up:`À venir`,pa:`Passés`,noPa:`Aucun rendez-vous passé`,sBub:`Bulle`,op:`Opacité`,sz:`Taille`,snd:`Sons`,addM:`🎵 Ajouter votre musique`,beh:`Comportement`,snz:`Report par défaut`,vib:`Vibration`,vl:`Légère`,vm:`Moyenne`,vs:`Forte`,lng:`Langue`,inf:`Informations`,infT:`Version 1.0 · Données locales · Sans publicité`,obT:`Activez la bulle`,obD:`Trois étapes simples, avec calme et élégance.`,o1:`Autoriser le micro`,o2:`Autoriser les notifications`,o3:`Autoriser l’affichage par-dessus les autres apps`,o3n:`Garde la bulle visible hors de l’app (version APK).`,go:`Commencer`,vT:`Touchez et parlez`,vEx:`« Rappelle-moi à 17 h rendez-vous avec Jeffrey »`,lis:`J’écoute…`,noSp:`Ce navigateur ne prend pas en charge la saisie vocale`,can:`Annuler`,begin:`Démarrer`,cT:`Confirmer le rendez-vous`,tod:`Aujourd’hui`,tom:`Demain`,sv:`Enregistrer`,nu:`Heure non comprise, réessayez`,ok:`Enregistré`,del:`Supprimé`,big:`Fichier supérieur à 5 Mo`,min:`min`,now:`C’est l’heure`,dn:`Terminé`,sn:`Reporter`,ttl:`Titre`,whn:`Quand`,dt:`Rendez-vous`,full:`Stockage plein`,imp:`Sonnerie ajoutée`,mus:`Ma musique`,tns:[`Murmure`,`Bip`,`Carillon doré`,`Cristal`,`Aube`,`Pulsation`]},
+es:{tag:`Tus momentos, en oro`,hi:`Bienvenido`,bub:`Burbuja`,bubOn:`Activa · toca para hablar`,bubOff:`Desactivada`,nxt:`Próxima cita`,noNxt:`Sin citas próximas`,addV:`🎤 Añadir por voz`,nHome:`Inicio`,nAp:`Citas`,nSet:`Ajustes`,up:`Próximas`,pa:`Pasadas`,noPa:`Sin citas pasadas`,sBub:`Burbuja`,op:`Opacidad`,sz:`Tamaño`,snd:`Sonidos`,addM:`🎵 Añadir tu música`,beh:`Comportamiento`,snz:`Posponer por defecto`,vib:`Vibración`,vl:`Suave`,vm:`Media`,vs:`Fuerte`,lng:`Idioma`,inf:`Información`,infT:`Versión 1.0 · Datos locales · Sin anuncios`,obT:`Activa la burbuja`,obD:`Tres pasos sencillos, con calma y elegancia.`,o1:`Permitir micrófono`,o2:`Permitir notificaciones`,o3:`Permitir mostrar sobre otras apps`,o3n:`Mantiene la burbuja visible fuera de la app (versión APK).`,go:`Empezar`,vT:`Toca y habla`,vEx:`«Pon una cita a las 5 de la tarde con Jeffrey»`,lis:`Escuchando…`,noSp:`El navegador no admite entrada de voz`,can:`Cancelar`,begin:`Iniciar`,cT:`Confirmar cita`,tod:`Hoy`,tom:`Mañana`,sv:`Guardar`,nu:`No entendí la hora, inténtalo de nuevo`,ok:`Guardado`,del:`Eliminado`,big:`El archivo supera 5 MB`,min:`min`,now:`Es la hora`,dn:`Hecho`,sn:`Posponer`,ttl:`Título`,whn:`Cuándo`,dt:`Cita`,full:`Almacenamiento lleno`,imp:`Tono añadido`,mus:`Mi música`,tns:[`Susurro`,`Bip`,`Campana dorada`,`Cristal`,`Alba`,`Pulso`]},
+tr:{tag:`Anların, altınla`,hi:`Hoş geldin`,bub:`Balon`,bubOn:`Açık · konuşmak için dokun`,bubOff:`Kapalı`,nxt:`Sıradaki randevu`,noNxt:`Yaklaşan randevu yok`,addV:`🎤 Sesle ekle`,nHome:`Ana sayfa`,nAp:`Randevular`,nSet:`Ayarlar`,up:`Yaklaşan`,pa:`Geçmiş`,noPa:`Geçmiş randevu yok`,sBub:`Balon`,op:`Saydamlık`,sz:`Boyut`,snd:`Sesler`,addM:`🎵 Müziğinden ekle`,beh:`Davranış`,snz:`Varsayılan erteleme`,vib:`Titreşim`,vl:`Hafif`,vm:`Orta`,vs:`Güçlü`,lng:`Dil`,inf:`Bilgi`,infT:`Sürüm 1.0 · Yalnızca yerel veri · Reklamsız`,obT:`Balonu etkinleştir`,obD:`Üç basit adım, sakin ve zarif.`,o1:`Mikrofona izin ver`,o2:`Bildirimlere izin ver`,o3:`Diğer uygulamaların üzerinde göstermeye izin ver`,o3n:`Balonu uygulama dışında da görünür tutar (APK sürümü).`,go:`Başla`,vT:`Dokun ve konuş`,vEx:`“Akşam 5’e Jeffrey ile toplantı ayarla”`,lis:`Dinliyorum…`,noSp:`Tarayıcı sesli girişi desteklemiyor`,can:`İptal`,begin:`Başla`,cT:`Randevuyu onayla`,tod:`Bugün`,tom:`Yarın`,sv:`Kaydet`,nu:`Saati anlayamadım, tekrar dene`,ok:`Kaydedildi`,del:`Silindi`,big:`Dosya 5 MB’tan büyük`,min:`dk`,now:`Vakit geldi`,dn:`Tamam`,sn:`Ertele`,ttl:`Başlık`,whn:`Ne zaman`,dt:`Randevu`,full:`Depolama dolu`,imp:`Zil sesi eklendi`,mus:`Müziğim`,tns:[`Fısıltı`,`Bip`,`Altın Çan`,`Kristal`,`Şafak`,`Nabız`]},
+de:{tag:`Deine Momente, in Gold`,hi:`Willkommen`,bub:`Blase`,bubOn:`Aktiv · zum Sprechen tippen`,bubOff:`Aus`,nxt:`Nächster Termin`,noNxt:`Keine kommenden Termine`,addV:`🎤 Per Sprache hinzufügen`,nHome:`Start`,nAp:`Termine`,nSet:`Einstellungen`,up:`Anstehend`,pa:`Vergangen`,noPa:`Keine vergangenen Termine`,sBub:`Blase`,op:`Transparenz`,sz:`Größe`,snd:`Töne`,addM:`🎵 Eigene Musik hinzufügen`,beh:`Verhalten`,snz:`Standard-Schlummern`,vib:`Vibration`,vl:`Leicht`,vm:`Mittel`,vs:`Stark`,lng:`Sprache`,inf:`Info`,infT:`Version 1.0 · Nur lokale Daten · Keine Werbung`,obT:`Blase aktivieren`,obD:`Drei einfache Schritte, ruhig und elegant.`,o1:`Mikrofon erlauben`,o2:`Benachrichtigungen erlauben`,o3:`Anzeige über anderen Apps erlauben`,o3n:`Hält die Blase auch außerhalb der App sichtbar (APK-Version).`,go:`Loslegen`,vT:`Tippen und sprechen`,vEx:`„Stelle einen Termin um 17 Uhr mit Jeffrey“`,lis:`Ich höre zu…`,noSp:`Der Browser unterstützt keine Spracheingabe`,can:`Abbrechen`,begin:`Start`,cT:`Termin bestätigen`,tod:`Heute`,tom:`Morgen`,sv:`Speichern`,nu:`Zeit nicht verstanden, bitte erneut versuchen`,ok:`Gespeichert`,del:`Gelöscht`,big:`Datei größer als 5 MB`,min:`Min`,now:`Es ist soweit`,dn:`Fertig`,sn:`Schlummern`,ttl:`Titel`,whn:`Wann`,dt:`Termin`,full:`Speicher voll`,imp:`Ton hinzugefügt`,mus:`Meine Musik`,tns:[`Flüstern`,`Piepton`,`Goldklang`,`Kristall`,`Morgenrot`,`Puls`]}
+};
+const LANGS={ar:{n:`العربية`,dir:`rtl`,sr:`ar-SA`,loc:`ar-u-nu-latn-ca-gregory`},en:{n:`English`,dir:`ltr`,sr:`en-US`,loc:`en-US`},fr:{n:`Français`,dir:`ltr`,sr:`fr-FR`,loc:`fr-FR`},es:{n:`Español`,dir:`ltr`,sr:`es-ES`,loc:`es-ES`},tr:{n:`Türkçe`,dir:`ltr`,sr:`tr-TR`,loc:`tr-TR`},de:{n:`Deutsch`,dir:`ltr`,sr:`de-DE`,loc:`de-DE`}};
+const TONE_IDS=['whisper','beep','chime','crystal','dawn','pulse'];
+const SNOOZES=[5,10,15,20,30],VIBS=['l','m','s'];
+const VPAT={l:[200],m:[400,150,400],s:[700,200,700,200,700]};
+
+/* ═══ الحالة والتخزين ═══ */
+const DEFAULT_STATE={lang:'ar',onboarded:false,bubbleOn:true,op:12,size:56,tone:'chime',custom:[],snooze:10,vib:'m',appts:[],pos:{x:null,y:null}};
+let state=loadState();
+function loadState(){try{return Object.assign(JSON.parse(JSON.stringify(DEFAULT_STATE)),JSON.parse(localStorage.getItem('ozak')||'{}'))}catch(e){return JSON.parse(JSON.stringify(DEFAULT_STATE))}}
+function saveState(){try{localStorage.setItem('ozak',JSON.stringify(state));nativeSync();return true}catch(e){toast(t('full'));return false}}
+
+/* ═══ أدوات ═══ */
+const NATIVE=!!window.Android;
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const t=k=>(I18N[state.lang]&&I18N[state.lang][k])||I18N.en[k]||k;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const P={mic:'<path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3"/>',home:'<path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/>',cal:'<rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/>',gear:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',trash:'<path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/>',clock:'<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2M5 3L3 5M19 3l2 2"/>',plus:'<path d="M12 5v14M5 12h14"/>'};
+const ic=n=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${P[n]}</svg>`;
+const hap=ms=>{try{navigator.vibrate&&navigator.vibrate(ms)}catch(e){}};
+let toastT;function toast(m){const e=$('#toast');e.textContent=m;e.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('on'),2600)}
+const pad=n=>String(n).padStart(2,'0');
+const fmtTime=ts=>new Intl.DateTimeFormat(LANGS[state.lang].loc,{hour:'numeric',minute:'2-digit'}).format(ts);
+const sod=ts=>{const d=new Date(ts);d.setHours(0,0,0,0);return d.getTime()};
+function fmtDay(ts){const d=Math.round((sod(ts)-sod(Date.now()))/864e5);if(d===0)return t('tod');if(d===1)return t('tom');return new Intl.DateTimeFormat(LANGS[state.lang].loc,{weekday:'short',day:'numeric',month:'short'}).format(ts)}
+const toLocalInput=ts=>{const d=new Date(ts);return`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`};
+
+/* مزامنة مع تطبيق أندرويد: الفقاعة الخارجية + المنبهات الدقيقة */
+function nativeSync(){if(!NATIVE)return;try{Android.sync(JSON.stringify({bubbleOn:!!(state.bubbleOn&&state.onboarded),op:state.op,size:state.size,appts:upcoming().map(a=>({id:a.id,ts:a.ts,title:a.title}))}))}catch(e){}}
+function syncPerms(){if(!NATIVE)return;try{const p=JSON.parse(Android.perms());ob['#o1']=p.mic;ob['#o2']=p.notif;ob['#o3']=p.overlay}catch(e){}}
+/* ═══ اللغة والتنقل والعرض ═══ */
+let screen='home',tab='up';
+function applyLanguage(){
+  const L=LANGS[state.lang];document.documentElement.lang=state.lang;document.documentElement.dir=L.dir;
+  $$('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));
+  buildToneGrid();buildCustomTones();buildLangGrid();render();
+}
+function go(s){
+  screen=s;$$('.scr').forEach(e=>e.classList.toggle('on',e.id==='s-'+s));
+  $$('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===s));
+  $('#nav').style.display=s==='ob'?'none':'flex';
+  const el=$('#s-'+s);if(el)el.scrollTop=0;render();updateBubbleVisual();
+}
+function render(){syncPerms();renderNext();renderAppts();$('#bubSt').textContent=t(state.bubbleOn?'bubOn':'bubOff');$('#bubSw').classList.toggle('on',state.bubbleOn);
+  $('#opV').textContent=state.op+'%';$('#szV').textContent=state.size+'px';$('#opR').value=state.op;$('#szR').value=state.size;
+  $('#vSn').textContent=state.snooze+' '+t('min');$('#vVb').textContent=t('v'+state.vib);
+  ['#o1','#o2','#o3'].forEach(s=>$(s+' .ck').textContent=ob[s]?'✓':'');}
+const upcoming=()=>state.appts.filter(a=>!a.done).sort((a,b)=>a.ts-b.ts);
+const past=()=>state.appts.filter(a=>a.done).sort((a,b)=>b.ts-a.ts);
+const card=(a,d)=>`<div class="card ap"><span class="dot"></span><div class="grow"><b>${esc(a.title)}</b><p class="dim">${fmtTime(a.ts)} · ${esc(fmtDay(a.ts))}</p></div>${d?`<button class="ib" data-del="${a.id}">${ic('trash')}</button>`:''}</div>`;
+const emptyC=m=>`<div class="card empty">${ic('clock')}<p>${m}</p></div>`;
+function renderNext(){const n=upcoming()[0];$('#next').innerHTML=n?card(n,false):emptyC(t('noNxt'))}
+function renderAppts(){$$('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));const l=tab==='up'?upcoming():past();
+  $('#list').innerHTML=l.length?l.map(a=>card(a,true)).join(''):emptyC(t(tab==='up'?'noNxt':'noPa'))}
+
+/* ═══ الأصوات ═══ */
+let ctx=null;
+function audioCtx(){try{if(!ctx)ctx=new(window.AudioContext||window.webkitAudioContext)();if(ctx.state==='suspended')ctx.resume()}catch(e){}return ctx}
+function env(f,t0,d,v,f2,a){const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(f,t0);if(f2)o.frequency.linearRampToValueAtTime(f2,t0+d);
+  g.gain.setValueAtTime(.0001,t0);g.gain.linearRampToValueAtTime(v,t0+a);g.gain.exponentialRampToValueAtTime(.0001,t0+d);o.connect(g).connect(ctx.destination);o.start(t0);o.stop(t0+d+.05)}
+const TONES={
+  whisper:n=>env(440,n,2.8,.22,0,.4),
+  beep:n=>{env(880,n,.12,.3,0,.01);env(880,n+.15,.12,.3,0,.01)},
+  chime:n=>[523.25,659.25,783.99,1046.5].forEach((f,i)=>env(f,n+i*.28,1.3,.25,0,.02)),
+  crystal:n=>env(1568,n,1.8,.22,0,.01),
+  dawn:n=>env(220,n,2.5,.26,440,.5),
+  pulse:n=>[0,.35,.7].forEach(i=>env(180,n+i,.25,.4,0,.02))};
+let curAudio=null;
+const isCustom=id=>!TONE_IDS.includes(id);
+function playTone(id,loop){if(isCustom(id))return playCustomTone(id,loop);const c=audioCtx();if(c&&TONES[id])TONES[id](c.currentTime+.02)}
+function playCustomTone(id,loop){const c=state.custom.find(x=>x.id===id);if(!c)return;stopCustom();curAudio=new Audio(c.url);curAudio.loop=!!loop;curAudio.play().catch(()=>{})}
+function stopCustom(){if(curAudio){curAudio.pause();curAudio=null}}
+function buildToneGrid(){$('#tones').innerHTML=TONE_IDS.map((id,i)=>`<button class="chip ${state.tone===id?'sel':''}" data-tone="${id}">${esc(t('tns')[i])}</button>`).join('')}
+function buildCustomTones(){$('#customs').innerHTML=state.custom.map(c=>`<button class="chip ${state.tone===c.id?'sel':''}" data-tone="${c.id}">${esc(c.name)}<s data-rm="${c.id}">×</s></button>`).join('')}
+function buildLangGrid(){$('#langs').innerHTML=Object.keys(LANGS).map(k=>`<button class="chip ${state.lang===k?'sel':''}" data-lang="${k}" style="font-family:inherit">${LANGS[k].n}</button>`).join('')}
+function importMusic(f){if(!f)return;if(f.size>5*1024*1024){toast(t('big'));return}
+  const r=new FileReader();r.onload=()=>{const c={id:'cu_'+Date.now(),name:f.name.replace(/\.[^.]+$/,'').slice(0,14)||t('mus'),url:r.result};state.custom.push(c);
+    if(!saveState()){state.custom.pop();return}state.tone=c.id;saveState();buildToneGrid();buildCustomTones();toast(t('imp'))};r.readAsDataURL(f)}
+
+/* ═══ الفقاعة ═══ */
+let bState='idle';
+function setBubbleSize(v){state.size=+v;document.documentElement.style.setProperty('--bs',v+'px');placeBubble()}
+function setOpacity(v){state.op=+v;document.documentElement.style.setProperty('--bo',v/100)}
+const clampB=(x,y)=>[Math.min(Math.max(x,4),innerWidth-state.size-4),Math.min(Math.max(y,8),innerHeight-state.size-8)];
+function placeBubble(x,y){const b=$('#bubble');[x,y]=clampB(x==null?state.pos.x:x,y==null?state.pos.y:y);b.style.left=x+'px';b.style.top=y+'px'}
+function setBS(s){bState=s;$('#bubble').classList.remove('listening','processing','success','upcoming');if(s!=='idle')$('#bubble').classList.add(s)}
+function updateBubbleVisual(){const b=$('#bubble');b.style.display=(state.bubbleOn&&state.onboarded&&screen!=='ob'&&!ringing)?'grid':'none';
+  if(bState==='idle'){const n=upcoming()[0];if(n&&n.ts>Date.now()&&n.ts-Date.now()<36e5)b.classList.add('upcoming');else b.classList.remove('upcoming')}}
+function toggleBubble(){state.bubbleOn=!state.bubbleOn;if(state.bubbleOn&&NATIVE){try{if(!JSON.parse(Android.perms()).overlay)Android.requestOverlay()}catch(e){}}saveState();render();updateBubbleVisual()}
+function initBubble(){
+  const b=$('#bubble');let sx,sy,ox,oy,mv=false,pid=null;
+  setBubbleSize(state.size);setOpacity(state.op);
+  if(state.pos.x==null)state.pos={x:innerWidth-state.size-6,y:Math.round(innerHeight*.55)};placeBubble();
+  b.onpointerdown=e=>{pid=e.pointerId;b.setPointerCapture(pid);sx=e.clientX;sy=e.clientY;ox=b.offsetLeft;oy=b.offsetTop;mv=false;b.classList.remove('snap');b.classList.add('press')};
+  b.onpointermove=e=>{if(pid!==e.pointerId)return;const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)+Math.abs(dy)>6)mv=true;if(mv)placeBubble(ox+dx,oy+dy)};
+  b.onpointerup=e=>{if(pid!==e.pointerId)return;pid=null;b.classList.remove('press');
+    if(!mv){hap(15);openVoice();return}
+    const x=b.offsetLeft+state.size/2<innerWidth/2?6:innerWidth-state.size-6;b.classList.add('snap');placeBubble(x,b.offsetTop);state.pos={x,y:b.offsetTop};saveState()};
+  b.onpointercancel=()=>{pid=null;b.classList.remove('press')};
+  addEventListener('resize',()=>placeBubble());
+}
+
+/* ═══ الصوت ═══ */
+let rec=null;
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+function openVoice(){audioCtx();const ok=SR||NATIVE;$('#voice').classList.add('on');$('#vTx').textContent=ok?'':t('noSp');$('#vGo').disabled=!ok;if(ok)startListening()}
+function closeVoice(){if(NATIVE)try{Android.stopVoice()}catch(e){}if(rec){rec.onend=null;try{rec.abort()}catch(e){}rec=null}$('#voice').classList.remove('on');$('#vOrb').classList.remove('pls');if(bState==='listening')setBS('idle')}
+function startListening(){
+  if(NATIVE){setBS('listening');$('#vOrb').classList.add('pls');$('#vTx').textContent=t('lis');try{Android.startVoice(LANGS[state.lang].sr)}catch(e){}return}
+  if(!SR)return;if(rec){rec.onend=null;try{rec.abort()}catch(e){}}
+  rec=new SR();rec.lang=LANGS[state.lang].sr;rec.interimResults=true;rec.continuous=false;let txt='';
+  rec.onstart=()=>{setBS('listening');$('#vOrb').classList.add('pls');$('#vTx').textContent=t('lis')};
+  rec.onresult=e=>{txt='';for(const r of e.results)txt+=r[0].transcript;$('#vTx').textContent=txt};
+  rec.onerror=e=>{if(e.error==='not-allowed'||e.error==='service-not-allowed')$('#vTx').textContent=t('o1')};
+  rec.onend=()=>{$('#vOrb').classList.remove('pls');rec=null;handleSpeech(txt)};
+  try{rec.start()}catch(e){}
+}
+
+function handleSpeech(txt){
+  if(txt.trim()){$('#voice').classList.remove('on');setBS('processing');const r=parseUtterance(txt);
+    if(!r){toast(t('nu'));setBS('idle')}else showConfirm(r.title,r.ts)}else setBS('idle')}
+/* استدعاءات قادمة من أندرويد */
+window.nativeSpeech=(txt,fin,err)=>{
+  if(err){$('#vOrb').classList.remove('pls');$('#vTx').textContent=err==='perm'?t('o1'):err==='na'?t('noSp'):t('nu');setBS('idle');return}
+  if(!fin){$('#vTx').textContent=txt;return}
+  $('#vOrb').classList.remove('pls');handleSpeech(txt)};
+window.ozakVoice=()=>{if(state.onboarded&&!ringing)openVoice()};
+window.nativeSync=nativeSync;
+/* ═══ محرك التحليل NLU ═══ */
+const normalizeDigits=s=>s.replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632).replace(/[۰-۹]/g,d=>d.charCodeAt(0)-1776);
+const AMW=`am|a\\.m\\.?|ص|صباحا[ًٌ]?|صباح|فجرا|matin|morning|sabah|morgens|vormittags`;
+const PMW=`pm|p\\.m\\.?|م|مساء[ًٌ]?|ليلا[ًٌ]?|ظهرا[ًٌ]?|عصرا[ًٌ]?|soir|tarde|noche|akşam|aksam|öğleden sonra|abends|nachmittags|nachts|evening|night|afternoon`;
+const ALLC=`(?:(?:${AMW}|${PMW})(?!\\p{L}))`;
+const PFX=`الساعة|الساعه|ساعة|at|à|a las|a la|um|saat|le`;
+const TOM=/غدا[ًٌ]?|غد[ًٌ]ا|بكر[ةه]|tomorrow|demain|mañana|manana|yarın|yarin|morgen(?!s)/iu;
+const UH=`ساعتين|ساعات|ساعة|hours?|hrs?|heures?|horas?|saat|stunden?`,UM=`دقيقتين|دقائق|دقيقة|minutes?|mins?|minutos?|dakika|dk|minuten`;
+const REL=new RegExp(`(?<!\\p{L})(?:بعد|in|dans|en|über)\\s+(\\d+(?:[.,]\\d+)?)?\\s*(${UH}|${UM})(?!\\p{L})`,'iu');
+const REL2=/(\d+)\s*(saat|dakika|dk)\s*sonra/iu;
+const CMD=`remind me|remind|set|an?|the|alarm|appointment|reminder|to|for|me|please|rappelle-moi|rappelle|règle|rendez-vous|un|une|pour|moi|recuérdame|ponme|pon|una|cita|alarma|bana|hatırlat|ayarla|randevu|erinnere|mich|stelle|einen|termin|wecker|bitte|اضبط|ذكرني|ضع|اريد|أريد|لي|منبه|موعد|تذكير|في|عند|ب|de|la|el|le|à|at|um|saat|الساعة`;
+const preRe=new RegExp(`((?<!\\p{L})${ALLC}\\s*)?((?<!\\p{L})(?:${PFX})\\s*)?$`,'iu');
+const postRe=new RegExp(`^\\s*(?:(?:uhr|h|['’]?te|['’]?ta|['’]?de|de la)(?!\\p{L}))?\\s*(${ALLC})?`,'iu');
+const pmTest=new RegExp(`^(?:${PMW})$`,'iu');
+function parseUtterance(raw){
+  let s=normalizeDigits(raw).replace(/de la ma[ñn]ana/gi,' am ').trim();
+  const tom=TOM.test(s);s=s.replace(TOM,' ');let ts=null;const now=new Date();
+  let m=REL.exec(s)||REL2.exec(s);
+  if(m){const u=m[2],isH=new RegExp(`^(?:${UH})$`,'iu').test(u)||/^saat$/i.test(u);
+    const n=parseFloat((m[1]||'').replace(',','.'))||(/ين$/.test(u)?2:1);ts=new Date(now.getTime()+n*(isH?36e5:6e4));ts.setSeconds(0,0);s=s.replace(m[0],' ')}
+  else{
+    const re=/(\d{1,2})(?:[:.h](\d{2}))?/g;let x;
+    while((x=re.exec(s))){
+      const idx=x.index,before=s.slice(Math.max(0,idx-16),idx),pm=before.match(preRe),post=s.slice(idx+x[0].length).match(postRe);
+      const per=(pm&&pm[1]&&pm[1].trim())||(post&&post[1]);
+      if(!(x[2]||(pm&&pm[2])||per))continue;
+      let h=+x[1],mi=+(x[2]||0);if(h>23||mi>59)continue;
+      const isPm=per&&pmTest.test(per.trim()),isAm=per&&!isPm;
+      if(isPm&&h<12)h+=12;else if(isAm&&h===12)h=0;else if(!per&&h>=1&&h<=7)h+=12;
+      const d=new Date(now);d.setHours(h,mi,0,0);if(tom)d.setDate(d.getDate()+1);else if(d<=now)d.setDate(d.getDate()+1);ts=d;
+      const st=idx-(pm?pm[0].length:0),en=idx+x[0].length+(post?post[0].length:0);s=s.slice(0,st)+' '+s.slice(en);break;
+    }
+  }
+  if(!ts)return null;
+  const lead=new RegExp(`^[\\s,.،-]*(?:${CMD})(?!\\p{L})`,'iu'),trail=new RegExp(`(?<!\\p{L})(?:${CMD})[\\s,.،-]*$`,'iu');
+  let title=s.replace(/\s+/g,' ').trim(),g=0;
+  while(g++<8&&lead.test(title))title=title.replace(lead,'').trim();
+  g=0;while(g++<4&&trail.test(title))title=title.replace(trail,'').trim();
+  return{title:title.replace(/^[\s,.،-]+|[\s,.،-]+$/g,'')||t('dt'),ts:ts.getTime()};
+}
+
+/* ═══ التأكيد ═══ */
+function showConfirm(title,ts){$('#cTitle').value=title;$('#cWhen').value=toLocalInput(ts);updSum();$('#confirm').classList.add('on')}
+function updSum(){const v=new Date($('#cWhen').value).getTime();$('#cSum').textContent=isNaN(v)?'':`${fmtDay(v)} · ${fmtTime(v)}`}
+function closeConfirm(){$('#confirm').classList.remove('on');if(bState==='processing')setBS('idle')}
+function saveConfirmed(){const ts=new Date($('#cWhen').value).getTime();if(isNaN(ts)){toast(t('nu'));return}
+  state.appts.push({id:'a'+Date.now(),title:$('#cTitle').value.trim()||t('dt'),ts,done:false});
+  if(!saveState()){state.appts.pop();return}
+  $('#confirm').classList.remove('on');setBS('success');setTimeout(()=>{setBS('idle');updateBubbleVisual()},1600);toast(t('ok'));hap(20);render();
+  if('Notification'in window&&Notification.permission==='default')try{Notification.requestPermission()}catch(e){}}
+
+/* ═══ التنبيه ═══ */
+let ringing=null,toneTimer=null,vibTimer=null;
+function startAlarmWatcher(){setInterval(checkAlarms,1000);document.addEventListener('visibilitychange',checkAlarms)}
+function checkAlarms(){if(ringing)return;const now=Date.now(),a=state.appts.find(x=>!x.done&&x.ts<=now);if(a)triggerAlarm(a);else if(!(now%30)){updateBubbleVisual()}}
+function triggerAlarm(a){ringing=a;$('#aT').textContent=a.title;$('#aTm').textContent=fmtTime(a.ts);$('#aSn').textContent=`${t('sn')} · ${state.snooze}${t('min')}`;
+  $('#alarm').classList.add('on');closeVoice();$('#confirm').classList.remove('on');updateBubbleVisual();playAlarmLoop();vibrateLoop();
+  if('Notification'in window&&Notification.permission==='granted')try{new Notification(`OZAK · ${t('now')}`,{body:`${a.title} — ${fmtTime(a.ts)}`,tag:a.id,requireInteraction:true})}catch(e){}}
+function playAlarmLoop(){const play=()=>playTone(state.tone,true);play();if(!isCustom(state.tone))toneTimer=setInterval(play,3500)}
+function vibrateLoop(){const go=()=>hap(VPAT[state.vib]);go();vibTimer=setInterval(go,3500)}
+function stopAlarm(){clearInterval(toneTimer);clearInterval(vibTimer);stopCustom();hap(0);$('#alarm').classList.remove('on');ringing=null;updateBubbleVisual();render()}
+function snoozeAlarm(){if(!ringing)return;ringing.ts=Date.now()+state.snooze*6e4;saveState();stopAlarm()}
+function doneAlarm(){if(!ringing)return;ringing.done=true;saveState();stopAlarm()}
+
+/* ═══ الصلاحيات ═══ */
+const ob={'#o1':false,'#o2':false,'#o3':false};
+function reqMic(){if(NATIVE){Android.requestMic();return}if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){ob['#o1']=true;render();return}
+  navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{s.getTracks().forEach(x=>x.stop());ob['#o1']=true;render()}).catch(()=>toast(t('o1')))}
+function reqNotif(){if(NATIVE){Android.requestNotif();return}if(!('Notification'in window)){ob['#o2']=true;render();return}
+  Notification.requestPermission().then(p=>{ob['#o2']=p==='granted';render()}).catch(()=>{})}
+
+/* ═══ الأحداث ═══ */
+function bind(){
+  document.addEventListener('click',e=>{if(e.target.closest('button,.chip'))hap(8)});
+  addEventListener('focus',render);document.addEventListener('visibilitychange',()=>{if(!document.hidden)render()});
+  document.addEventListener('pointerdown',audioCtx,{once:true});
+  $$('#nav button').forEach(b=>b.onclick=()=>go(b.dataset.go));
+  $$('.tab').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;renderAppts()});
+  $('#bubSw').onclick=toggleBubble;$('#addV').onclick=openVoice;
+  $('#manual').onclick=()=>{const d=new Date(Date.now()+36e5);d.setMinutes(0,0,0);showConfirm('',d.getTime())};
+  $('#list').onclick=e=>{const b=e.target.closest('[data-del]');if(!b)return;state.appts=state.appts.filter(a=>a.id!==b.dataset.del);saveState();toast(t('del'));render()};
+  $('#vCan').onclick=closeVoice;$('#vGo').onclick=startListening;$('#cCan').onclick=closeConfirm;$('#cSave').onclick=saveConfirmed;$('#cWhen').oninput=updSum;
+  $('#aSn').onclick=snoozeAlarm;$('#aDn').onclick=doneAlarm;
+  $('#opR').oninput=e=>{setOpacity(e.target.value);$('#opV').textContent=e.target.value+'%'};$('#opR').onchange=saveState;
+  $('#szR').oninput=e=>{setBubbleSize(e.target.value);$('#szV').textContent=e.target.value+'px'};$('#szR').onchange=saveState;
+  $('#tones').onclick=$('#customs').onclick=e=>{const rm=e.target.closest('[data-rm]');
+    if(rm){const id=rm.dataset.rm;state.custom=state.custom.filter(c=>c.id!==id);if(state.tone===id)state.tone='chime';saveState();buildToneGrid();buildCustomTones();return}
+    const c=e.target.closest('[data-tone]');if(!c)return;state.tone=c.dataset.tone;saveState();buildToneGrid();buildCustomTones();playTone(state.tone,false)};
+  $('#addM').onclick=()=>$('#file').click();$('#file').onchange=e=>{importMusic(e.target.files[0]);e.target.value=''};
+  $('#rSn').onclick=()=>{state.snooze=SNOOZES[(SNOOZES.indexOf(state.snooze)+1)%SNOOZES.length];saveState();render()};
+  $('#rVb').onclick=()=>{state.vib=VIBS[(VIBS.indexOf(state.vib)+1)%3];saveState();render();hap(VPAT[state.vib])};
+  $('#langs').onclick=e=>{const b=e.target.closest('[data-lang]');if(!b)return;state.lang=b.dataset.lang;saveState();applyLanguage()};
+  $('#o1').onclick=reqMic;$('#o2').onclick=reqNotif;$('#o3').onclick=()=>{if(NATIVE)Android.requestOverlay();else{ob['#o3']=true;render()}};
+  $('#obGo').onclick=()=>{state.onboarded=true;saveState();go('home')};
+}
+
+/* ═══ التشغيل ═══ */
+function init(){
+  $$('[data-ic]').forEach(e=>e.innerHTML=ic(e.dataset.ic));
+  bind();applyLanguage();initBubble();startAlarmWatcher();
+  go(state.onboarded?'home':'ob');nativeSync();
+  setTimeout(()=>{$('#splash').classList.add('out');setTimeout(()=>$('#splash').remove(),550)},1800);
+  setInterval(updateBubbleVisual,30000);
+}
+init();
+if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0)addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+
+/* ═══════════════════════════════════════════════════════════════
+   دليل التحويل إلى APK (Android Studio + WebView)
+   ───────────────────────────────────────────────────────────────
+   1) ضع هذا الملف في app/src/main/assets/ozak.html
+   2) MainActivity.kt: WebView يحمّل file:///android_asset/ozak.html مع تفعيل
+      JavaScript وDOM Storage وmediaPlaybackRequiresUserGesture=false، ويمنح
+      الميكروفون عبر WebChromeClient.onPermissionRequest. يعرّف جسر JS
+      (@JavascriptInterface) باسم Android: scheduleAlarm(id,title,ts)،
+      cancelAlarm(id)، startBubble()، stopBubble()، openOverlaySettings().
+      بما أن Web Speech غير مدعوم في WebView، استخدم SpeechRecognizer
+      الأصلي وأعد النص إلى JS عبر evaluateJavascript.
+   3) BubbleService.kt: Foreground Service (إشعار دائم) يرسم الفقاعة بـ
+      WindowManager + TYPE_APPLICATION_OVERLAY (إذن SYSTEM_ALERT_WINDOW)،
+      قابلة للسحب، وعند الضغط تفتح MainActivity بوضع الصوت.
+   4) AlarmScheduler.kt: يستخدم AlarmManager.setExactAndAllowWhileIdle
+      (إذن SCHEDULE_EXACT_ALARM / USE_EXACT_ALARM) مع PendingIntent لكل موعد.
+   5) AlarmReceiver.kt: BroadcastReceiver يستقبل الموعد ويطلق AlarmActivity
+      عبر Full-Screen Intent (إذن USE_FULL_SCREEN_INTENT) مع قناة إشعارات عالية الأهمية.
+   6) AlarmActivity.kt: شاشة المنبه الأصلية (showWhenLocked + turnScreenOn)،
+      تشغّل النغمة بـ MediaPlayer وتهتز بـ Vibrator، وزرّا «تم/تأجيل».
+   7) BootReceiver.kt: يعيد جدولة المنبهات بعد إعادة تشغيل الجهاز
+      (RECEIVE_BOOT_COMPLETED) من التخزين المحلي.
+   8) AndroidManifest.xml: الأذونات RECORD_AUDIO وPOST_NOTIFICATIONS
+      وVIBRATE وFOREGROUND_SERVICE وWAKE_LOCK مع تسجيل الخدمة والمستقبِلات.
+   ═══════════════════════════════════════════════════════════════ */
+</script>
+</body>
+</html>
